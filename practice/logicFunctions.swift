@@ -52,6 +52,25 @@ final class logicFunctions {
         return false
     }
     
+    func aggregateOrders(orders: [(userId:Int, orderAmount:Double)]) -> [Int:Double] {
+        var orderSummary: [Int:Double] = [:]  // initialize new dict.
+        for order in orders {
+            orderSummary[order.userId, default: 0] += order.orderAmount
+        }
+        return orderSummary
+    }
+    
+    // event log analysis(QA/Automation) // log format: "timestamp: status"
+//    func countEventDurations(logs: [String]) -> [Int:Int] { // INPUT: "START: END"
+//        // return a dictionary of the string given by splitting the two components by the colon :
+//        // the first component is a number, so it should be converted to an integer from a string
+//        // the 2nd component is a string
+//        var eventDurations: [Int:Int]
+//        var startTimes: [Int] = []
+//        for log in logs {
+//            var component =
+//        }
+//    }
     
     // log analyzer
     func analyzeLogs(logs: [String]) -> [String:Int] {

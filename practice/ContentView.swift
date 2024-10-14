@@ -7,43 +7,26 @@
 
 import SwiftUI
 
+class ContentViewModel: ObservableObject {
+    @Published var labelText = "initial text"
+    
+    func updateLabel() {
+        labelText = "Updated text"
+    }
+}
+
 struct ContentView: View {
-    @State private var labelText = "Initial Text"
+    @StateObject private var viewModel = ContentViewModel()
     
     var body: some View {
-        VStack(spacing: 40) {
-            Text("Status Checker")
-                .font(.largeTitle)
-                .fontWeight(.bold)
-                .foregroundColor(.blue)
-                .padding(.top, 50)
-            
-            Text(labelText)
-                .font(.title2)
-                .foregroundColor(.gray)
-                .multilineTextAlignment(.center)
-                .accessibilityIdentifier("statusLabel")
-                .padding()
-                .frame(maxWidth: .infinity, minHeight: 100)
-                .background(Color(.systemGray6))
-                .cornerRadius(12)
-            
-            Button(action: {
-                labelText = "Status: Updated Successfully"
-            }) {
-                Text("Update Status")
-                    .fontWeight(.semibold)
-                    .padding()
-                    .frame(maxWidth: .infinity)
-                    .background(Color.blue)
-                    .foregroundColor(.white)
-                    .cornerRadius(12)
+        VStack {
+            Text(viewModel.labelText).padding()
+            Button("Update label") {
+                viewModel.updateLabel()
             }
-            .accessibilityIdentifier("updateButton")
-            .padding(.horizontal, 40)
+            .padding()
         }
-        .background(Color(.systemBackground))
-        .edgesIgnoringSafeArea(.all)
+        .padding()
     }
 }
 
